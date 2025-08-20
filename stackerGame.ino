@@ -29,7 +29,7 @@ void loop() {
   lcd.print("wassup");
 
   myDisplay.setTextAlignment(PA_CENTER);
-  myDisplay.print("Hello");
+  myDisplay.print("I Like");
 
   delay(3000);
 }
