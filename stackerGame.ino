@@ -26,10 +26,10 @@ void setup() {
 
 void loop() {
   lcd.setCursor(0, 0);
-  lcd.print("Bye!");
+  lcd.print("wassup");
 
-  myDisplay.setTextAlignment(PA_RIGHT);
-  myDisplay.print("Helloo");
+  myDisplay.setTextAlignment(PA_CENTER);
+  myDisplay.print("Hello");
 
   delay(3000);
 }
