@@ -26,10 +26,12 @@ void setup() {
 
 void loop() {
   lcd.setCursor(0, 0);
-  lcd.print("wassup");
+  lcd.print("testBranch");
 
   myDisplay.setTextAlignment(PA_CENTER);
   myDisplay.print("I Like");
 
   delay(3000);
 }
+
+// this comment is me testing out the branch function
