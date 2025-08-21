@@ -1,3 +1,4 @@
+#include <stacker.h>
 // libraries/defines for 8x32 matrix
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
@@ -12,7 +13,6 @@ MD_Parola myDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-
 
 void setup() {
   // put your setup code here, to run once:
