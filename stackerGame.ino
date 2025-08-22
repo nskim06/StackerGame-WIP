@@ -1,4 +1,5 @@
 #define BUTTON_R 12
+#include "animations.h" // animations for start screen
 
 // libraries/defines for 8x32 matrix
 #include <MD_Parola.h>
@@ -17,36 +18,30 @@ MD_Parola matrixDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // variables and constants
-int screenTimer = 3;
+uint8_t lcdTimer = 3;
 
 void setup() {
   // put your setup code here, to run once:
-  lcd.init();
-  lcd.backlight();
-
   matrixDisplay.begin();
-  matrixDisplay.setIntensity(0);
-  matrixDisplay.displayClear();
-  matrixDisplay.print("STACKER");
+  for (uint8_t i = 0; i < 3; i++)
+  {
+    animList[i].speed *= matrixDisplay.getSpeed(); 
+    animList[i].pause *= 500;
+  }
 }
 
 void loop() {
+  static uint8_t i = 0;
 
-  lcd.setCursor(0,0);
-  lcd.print("Pick Difficulty");
-
-  while (screenTimer >= 0)
+  if (matrixDisplay.displayAnimate())
   {
-    lcd.setCursor(0, 1);
-    lcd.print(screenTimer);
-    delay(1000);
-    --screenTimer;
+    if (i == 3)
+      i = 0;
+    matrixDisplay.displayText(animList[i].textout, animList[i].just, animList[i].speed, animList[i].pause, 
+    animList[i].anim_in, animList[i].anim_out);
+    delay(500);
+    i++;
   }
-
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("EZ | MED | HARD");
-
-  delay(3000);
+ 
 }
 
