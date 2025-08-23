@@ -18,30 +18,63 @@ MD_Parola matrixDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // variables and constants
-uint8_t lcdTimer = 3;
+#define BUTTON_R 12
+#define BUTTON_L 9
 
 void setup() {
-  // put your setup code here, to run once:
+  // button setup
+  pinMode(BUTTON_R, INPUT);
+  pinMode(BUTTON_L, INPUT);
+  buttonRState = digitalRead(BUTTON_R);
+  buttonLState = digitalRead(BUTTON_L);
+
+  // start screen animation setup
   matrixDisplay.begin();
+  matrixDisplay.setIntensity(5);
   for (uint8_t i = 0; i < 3; i++)
   {
     animList[i].speed *= matrixDisplay.getSpeed(); 
     animList[i].pause *= 500;
   }
+
+  // lcd screen setup
+  lcd.init();
+  lcd.backlight();
 }
 
 void loop() {
-  static uint8_t i = 0;
 
-  if (matrixDisplay.displayAnimate())
+  //-----------------------//
+  // STATE 1: TITLE SCREEN //
+  //-----------------------//
+
+  static uint8_t i = 0;
+  bool inGame = false;
+  uint8_t diffSelect = 1;
+
+  while (!inGame)
   {
-    if (i == 3)
-      i = 0;
-    matrixDisplay.displayText(animList[i].textout, animList[i].just, animList[i].speed, animList[i].pause, 
-    animList[i].anim_in, animList[i].anim_out);
-    delay(500);
-    i++;
+    if (matrixDisplay.displayAnimate())
+    {
+      if (i == 3)
+        i = 0;
+      matrixDisplay.displayText(animList[i].textout, animList[i].just, animList[i].speed, animList[i].pause, 
+      animList[i].anim_in, animList[i].anim_out);
+      delay(500);
+      i++;
+    }
+    lcd.setCursor(0,0);
+    lcd.print("EZ | MED | HARD");
+    if (buttonRState == LOW)
+    {
+      lcd.setCursor(0, 1);
+      lcd.print("^");
+    }
   }
- 
+
+  //----------------------//
+  //   STATE 2: IN-GAME   //
+  //----------------------//
+  
 }
 
