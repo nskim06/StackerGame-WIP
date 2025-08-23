@@ -25,8 +25,6 @@ void setup() {
   // button setup
   pinMode(BUTTON_R, INPUT);
   pinMode(BUTTON_L, INPUT);
-  buttonRState = digitalRead(BUTTON_R);
-  buttonLState = digitalRead(BUTTON_L);
 
   // start screen animation setup
   matrixDisplay.begin();
@@ -44,10 +42,13 @@ void setup() {
 
 void loop() {
 
+  uint8_t buttonRState = digitalRead(BUTTON_R);
+  uint8_t buttonLState = digitalRead(BUTTON_L);
+
   //-----------------------//
   // STATE 1: TITLE SCREEN //
   //-----------------------//
-
+  
   static uint8_t i = 0;
   bool inGame = false;
   uint8_t diffSelect = 1;
@@ -65,6 +66,7 @@ void loop() {
     }
     lcd.setCursor(0,0);
     lcd.print("EZ | MED | HARD");
+    buttonRState = digitalRead(BUTTON_R);
     if (buttonRState == LOW)
     {
       lcd.setCursor(0, 1);
