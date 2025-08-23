@@ -75,17 +75,18 @@ void loop() {
 
     buttonRState = digitalRead(BUTTON_R);
     buttonLState = digitalRead(BUTTON_L);
-    if (buttonRState == LOW) {
-      while (buttonRState == LOW) {
-        buttonRState = digitalRead(BUTTON_R);
-        continue;
-      }
+    if (buttonRState == LOW) 
+      state = 1;
+    if (state == 1 && buttonRState == HIGH) {
       lcd.setCursor(diff * 6, 1);
       lcd.print(" ");
-      if (diff == HARD) diff = EASY;
-      else ++diff;
+      if (diff == HARD) 
+        diff = EASY;
+      else 
+        ++diff;
       lcd.setCursor(diff * 6, 1);
       lcd.print("^");
+      state = 0;
     }
 
     if (buttonLState == LOW)
