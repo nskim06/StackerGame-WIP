@@ -1,5 +1,7 @@
 #define BUTTON_R 12
-#include "animations.h" // animations for start screen
+#define BUTTON_L 9
+#include "animations.h"
+#include "game.h"
 
 // libraries/defines for 8x32 matrix
 #include <MD_Parola.h>
@@ -51,7 +53,13 @@ void loop() {
   
   static uint8_t i = 0;
   bool inGame = false;
-  uint8_t diffSelect = 1;
+  uint8_t diff = EASY;
+  uint8_t state = 0;
+
+  lcd.setCursor(0,0);
+  lcd.print("EZ | MED | HARD");
+  lcd.setCursor(0,1);
+  lcd.print("^");
 
   while (!inGame)
   {
@@ -64,15 +72,32 @@ void loop() {
       delay(500);
       i++;
     }
-    lcd.setCursor(0,0);
-    lcd.print("EZ | MED | HARD");
+
     buttonRState = digitalRead(BUTTON_R);
-    if (buttonRState == LOW)
-    {
-      lcd.setCursor(0, 1);
+    buttonLState = digitalRead(BUTTON_L);
+    if (buttonRState == LOW) {
+      while (buttonRState == LOW) {
+        buttonRState = digitalRead(BUTTON_R);
+        continue;
+      }
+      lcd.setCursor(diff * 6, 1);
+      lcd.print(" ");
+      if (diff == HARD) diff = EASY;
+      else ++diff;
+      lcd.setCursor(diff * 6, 1);
       lcd.print("^");
     }
+
+    if (buttonLState == LOW)
+    {
+      delay(1000);
+      inGame = true;
+    }
   }
+  
+  lcd.clear();
+  matrixDisplay.displayClear();
+  delay(5000);
 
   //----------------------//
   //   STATE 2: IN-GAME   //
