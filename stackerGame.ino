@@ -2,6 +2,7 @@
 #define BUTTON_L 9
 #include "animations.h"
 #include "game.h"
+#include "customFonts.h"
 
 // libraries/defines for 8x32 matrix
 #include <MD_Parola.h>
@@ -91,18 +92,21 @@ void loop() {
 
     if (buttonLState == LOW)
     {
-      delay(1000);
+      delay(1500);
       inGame = true;
     }
   }
   
+  // gonna create a cool transition animation here later
   lcd.clear();
-  matrixDisplay.displayClear();
+  runTransition(matrixDisplay);
   delay(5000);
 
   //----------------------//
   //   STATE 2: IN-GAME   //
   //----------------------//
   
+
+
 }
 
