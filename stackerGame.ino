@@ -5,7 +5,6 @@
 #include "customFonts.h"
 
 // libraries/defines for 8x32 matrix
-#include <LedControl.h>
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
 #include <SPI.h>
@@ -15,7 +14,6 @@
 #define CLK_PIN 13
 #define DATA_PIN 11
 MD_Parola matrixDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
-LedControl lc = LedControl(DATA_PIN, CLK_PIN, CS_PIN, 4);
 
 // libraries for LCD display
 #include <LiquidCrystal_I2C.h>
