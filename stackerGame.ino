@@ -102,7 +102,8 @@ void loop() {
   // gonna create a cool transition animation here later
   lcd.clear();
   runTransition(matrixDisplay);
-  delay(5000);
+  delay(3000);
+
 
   //----------------------//
   //   STATE 2: IN-GAME   //
