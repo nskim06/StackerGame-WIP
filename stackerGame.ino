@@ -27,7 +27,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 #define BUTTON_L 9
 
 void setup() {
-  // button setup
+ // button setup
   pinMode(BUTTON_R, INPUT);
   pinMode(BUTTON_L, INPUT);
 
@@ -43,6 +43,7 @@ void setup() {
   // lcd screen setup
   lcd.init();
   lcd.backlight();
+
 }
 
 void loop() {
@@ -102,14 +103,25 @@ void loop() {
   // gonna create a cool transition animation here later
   lcd.clear();
   runTransition(matrixDisplay);
-  delay(3000);
+  delay(2000);
 
-
+  matrixDisplay.displayClear();
+  matrixDisplay.displayShutdown(true);
+  SPI.end();
+  
   //----------------------//
   //   STATE 2: IN-GAME   //
   //----------------------//
   
-  
+  for (uint8_t i = 0; i < 4; ++i)
+    {
+      lc.shutdown(i, false);
+      lc.setIntensity(i, 15);
+      lc.clearDisplay(i);
+    }
+
+  lc.setLed(3, 0, 0, true);
+  delay(2000);
   
 }
 
