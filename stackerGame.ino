@@ -5,7 +5,7 @@
 #include "customFonts.h"
 
 // libraries/defines for 8x32 matrix
-#include <
+#include <LedControl.h>
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
 #include <SPI.h>
@@ -14,6 +14,7 @@
 #define CS_PIN 3
 #define CLK_PIN 13
 #define DATA_PIN 11
+LedControl lc = LedControl(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 MD_Parola matrixDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 
 // libraries for LCD display
@@ -107,7 +108,7 @@ void loop() {
   //   STATE 2: IN-GAME   //
   //----------------------//
   
-  // testing pull //
+  
   
 }
 
