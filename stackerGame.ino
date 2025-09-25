@@ -57,7 +57,7 @@ void loop() {
   
   static uint8_t i = 0;
   bool inGame = false;
-  uint8_t diff = EASY;
+  int diff = EASY;
   uint8_t state = 0;
 
   lcd.setCursor(0,0);
@@ -120,14 +120,15 @@ void loop() {
       lc.clearDisplay(i);
     }
 
-  block test(4, 4, true, -3, 0);
-  test.displayBlock(lc);
+  game testGame;
+  testGame.gameSetup(diff);
+  (testGame.getBlock()).displayBlock(lc);
 
-  for (int i = 0; i < 30; ++i)
+  /*for (int i = 0; i < 30; ++i)
   {
-    delay(500);
+    delay(100);
     test.step(lc);
-  }
+  }*/
 
   
   delay(5000);
