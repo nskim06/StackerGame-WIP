@@ -120,8 +120,15 @@ void loop() {
       lc.clearDisplay(i);
     }
 
-  block test(4, 4, true, 0, 0);
+  block test(4, 4, true, -3, 0);
   test.displayBlock(lc);
+
+  for (int i = 0; i < 30; ++i)
+  {
+    delay(500);
+    test.step(lc);
+  }
+
   
   delay(5000);
 }
