@@ -103,7 +103,7 @@ void loop() {
   // gonna create a cool transition animation here later
   lcd.clear();
   runTransition(matrixDisplay);
-  delay(2000);
+  delay(500);
 
   matrixDisplay.displayClear();
   matrixDisplay.displayShutdown(true);
@@ -120,8 +120,9 @@ void loop() {
       lc.clearDisplay(i);
     }
 
-  lc.setLed(3, 0, 0, true);
-  delay(2000);
+  block test(4, 4, true, 0, 0);
+  test.displayBlock(lc);
   
+  delay(5000);
 }
 
