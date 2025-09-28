@@ -56,9 +56,8 @@ public:
   }
   void step(LedControl lc) {   // one "step" in the block's animation
     if (getDir()) {
-      if (get_x() == 0) {   // block is at the RIGHT edge of display
+      if (get_x() == 1) {   // block is one before the RIGHT edge of display, will take one more step before changing dir
         setDir(!getDir());  
-        return;
       }  
       lc.setLed(get_address(), get_x(), get_y(), false);
       lc.setLed(get_address(), get_x(), get_y() - 1, false);
@@ -69,9 +68,8 @@ public:
     }
     else {
       uint8_t x_right = get_x() - getLen() + 1;
-      if (x_right == 7) {   // block is at the LEFT edge of display
+      if (x_right == 6) {   // block is one before the LEFT edge of display
         setDir(!getDir());  
-        return;
       }   
       lc.setLed(get_address(), x_right, get_y(), false);
       lc.setLed(get_address(), x_right, get_y() - 1, false);
