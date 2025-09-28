@@ -33,7 +33,7 @@ void setup() {
 
   // start screen animation setup
   matrixDisplay.begin();
-  matrixDisplay.setIntensity(5);
+  matrixDisplay.setIntensity(3);
   for (uint8_t i = 0; i < 3; i++)
   {
     animList[i].speed *= matrixDisplay.getSpeed(); 
@@ -116,19 +116,21 @@ void loop() {
   for (uint8_t i = 0; i < 4; ++i)
     {
       lc.shutdown(i, false);
-      lc.setIntensity(i, 15);
+      lc.setIntensity(i, 5);
       lc.clearDisplay(i);
     }
 
-  game testGame;
-  testGame.gameSetup(diff);
+  
+  game testGame(diff);
   (testGame.getBlock()).displayBlock(lc);
 
-  /*for (int i = 0; i < 30; ++i)
+  delay(500);
+
+  for (int i = 0; i < 30; ++i)
   {
     delay(100);
-    test.step(lc);
-  }*/
+    testGame.getBlock().step(lc);
+  }
 
   
   delay(5000);

@@ -68,11 +68,11 @@ public:
       return;
     }
     else {
-      if (get_x() == 10) {   // block is at the LEFT edge of display
+      uint8_t x_right = get_x() - getLen() + 1;
+      if (x_right == 7) {   // block is at the LEFT edge of display
         setDir(!getDir());  
         return;
-      }  
-      uint8_t x_right = get_x() - getLen() + 1;
+      }   
       lc.setLed(get_address(), x_right, get_y(), false);
       lc.setLed(get_address(), x_right, get_y() - 1, false);
       lc.setLed(get_address(), get_x() + 1, get_y(), true);    // no edge-checking, but still works
@@ -98,6 +98,22 @@ public:
     : m_boundaries{0, 7}, m_topBlock(new block()), m_minorPrize(22), m_majorPrize(30), m_gameSpeed(500) {}
   game(block startBlock)
     : m_boundaries{0, 7}, m_topBlock(&startBlock), m_minorPrize(22), m_majorPrize(30), m_gameSpeed(500) {}
+  game (int difficulty)
+    : m_boundaries{0, 7}, m_minorPrize(22), m_majorPrize(30), m_gameSpeed(500) 
+    {
+      if (difficulty == EASY) {
+        m_topBlock = new block(4, random(0, 2), random(0, 8), 0);
+        setSpeed(800);
+      }
+      else if (difficulty == MEDIUM) {
+        m_topBlock = new block(3, random(0, 2), random(0, 8), 0);
+        setSpeed(500);
+      }
+      else if (difficulty == HARD) {
+        m_topBlock = new block(3, random(0, 2), random(0, 8), 0);
+        setSpeed(200);
+      }
+    }
 
   void getBounds(int (&bounds)[2]) {
     unsigned int i = 0;
@@ -109,7 +125,7 @@ public:
   int getSpeed() {
     return m_gameSpeed;
   }
-  block getBlock() {
+  block& getBlock() {
     return *m_topBlock;
   }
   
@@ -123,12 +139,12 @@ public:
   void setSpeed(int newSpeed) {
     m_gameSpeed = newSpeed;
   }
-  void setTopBlock(block nextBlock) {
+  void setTopBlock(block& nextBlock) {
     delete m_topBlock; 
     m_topBlock = &nextBlock;
   }
 
-  void gameSetup(int difficulty) {
+  /*void gameSetup(int difficulty) {
     if (difficulty == EASY) {
       block startBlock = block(4, random(1), random(0, 7), 0);
       setSpeed(800);
@@ -144,7 +160,7 @@ public:
       setSpeed(200);
       setTopBlock(startBlock);
     }
-  }
+  }*/
 
 };
   
