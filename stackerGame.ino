@@ -33,7 +33,7 @@ void setup() {
 
   // start screen animation setup
   matrixDisplay.begin();
-  matrixDisplay.setIntensity(3);
+  matrixDisplay.setIntensity(1);
   for (uint8_t i = 0; i < 3; i++)
   {
     animList[i].speed *= matrixDisplay.getSpeed(); 
@@ -116,23 +116,35 @@ void loop() {
   for (uint8_t i = 0; i < 4; ++i)
     {
       lc.shutdown(i, false);
-      lc.setIntensity(i, 5);
+      lc.setIntensity(i, 2);
       lc.clearDisplay(i);
     }
 
   
-  game testGame(diff);
-  (testGame.getBlock()).displayBlock(lc);
-
+  game newGame(diff);
+  (newGame.getBlock()).displayBlock(lc);
   delay(500);
 
-  for (int i = 0; i < 30; ++i)
-  {
-    delay(100);
-    testGame.getBlock().step(lc);
+  while (inGame) {
+    for (int i = 0; i < newGame.getSpeed(); ++i)
+    {
+      buttonRState = digitalRead(BUTTON_R);
+      buttonLState = digitalRead(BUTTON_L);
+      if (buttonRState == LOW || buttonLState == LOW)
+      {
+        delay(1000);
+        newGame.setTopBlock(new block(3, random(0, 2), random(1, 7), newGame.getHeight() + 2));
+        newGame.setHeight(7 - (newGame.getBlock().get_y()) + (newGame.getBlock().get_address() * 8));   // had to cancel out the "7 -" from get_y() and account for address
+        (newGame.getBlock()).displayBlock(lc);
+        continue;
+      }
+      else
+        delay(1);
+    }
+    (newGame.getBlock()).step(lc);
+
   }
 
-  
   delay(5000);
 }
 
